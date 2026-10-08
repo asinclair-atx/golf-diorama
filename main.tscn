@@ -1,0 +1,70 @@
+[gd_scene format=3 uid="uid://bhq6op33oawdv"]
+
+[ext_resource type="Script" uid="uid://bdbl3s1si8uu2" path="res://terrain.gd" id="1_ig7tw"]
+[ext_resource type="Script" uid="uid://dvpdrfjie66no" path="res://orbit_camera.gd" id="2_0xm2m"]
+[ext_resource type="Script" uid="uid://13yoyj31phg4" path="res://sculpt_controller.gd" id="3_h2yge"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_nj4ij"]
+
+[sub_resource type="TorusMesh" id="TorusMesh_k6aki"]
+material = SubResource("StandardMaterial3D_nj4ij")
+inner_radius = 2.8
+outer_radius = 3.0
+rings = 32
+ring_segments = 8
+
+[sub_resource type="SphereMesh" id="SphereMesh_k6aki"]
+radius = 0.25
+height = 0.5
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h2yge"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_72ghi"]
+material = SubResource("StandardMaterial3D_h2yge")
+radius = 0.25
+height = 0.5
+
+[sub_resource type="Environment" id="Environment_k6aki"]
+background_mode = 1
+background_color = Color(0.65882355, 0.7294118, 0.7529412, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.42326742, 0.6476312, 0.7643372, 1)
+ambient_light_energy = 0.5
+
+[node name="Main" type="Node3D" unique_id=1443234642]
+
+[node name="Terrain" type="Node3D" parent="." unique_id=569591658]
+script = ExtResource("1_ig7tw")
+
+[node name="CameraRig" type="Node3D" parent="." unique_id=137637915]
+script = ExtResource("2_0xm2m")
+
+[node name="Camera3D" type="Camera3D" parent="CameraRig" unique_id=1763006965]
+current = true
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1783786914]
+transform = Transform3D(0.81915206, 0.43938506, -0.36868784, 0, 0.64278764, 0.76604444, 0.57357645, -0.62750685, 0.5265408, 0, 0, 0)
+shadow_enabled = true
+
+[node name="BrushCursor" type="MeshInstance3D" parent="." unique_id=536956719]
+mesh = SubResource("TorusMesh_k6aki")
+
+[node name="SculptController" type="Node" parent="." unique_id=1729685860]
+script = ExtResource("3_h2yge")
+current_tool = 4
+raise_radius = 7.5
+raise_strength = 3.0
+smooth_strength = 30.0
+flatten_radius = 2.0
+flatten_strength = 10.0
+slope_radius = 5.0
+slope_strength = 5.0
+
+[node name="SlopeMarkerA" type="MeshInstance3D" parent="." unique_id=1876121417]
+mesh = SubResource("SphereMesh_k6aki")
+
+[node name="SlopeMarkerB" type="MeshInstance3D" parent="." unique_id=1862354608]
+mesh = SubResource("SphereMesh_72ghi")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=14317046]
+environment = SubResource("Environment_k6aki")
